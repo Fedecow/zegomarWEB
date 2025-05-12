@@ -56,6 +56,27 @@
       transition: opacity 1.5s, transform 1.5s;
     }
 
+.promo-bar {
+  height: 70px;
+  width: 100%;
+  background-color: #7d8dc4;
+  color: white;
+  font-size: 34px;
+  text-align: center;
+  line-height: 70px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  overflow: hidden;
+}
+
+#promo-text {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+
+
     .section {
       display: flex;
       flex-wrap: wrap;
@@ -92,6 +113,7 @@
       max-width: 100%;
       height: 100%;
       object-fit: cover;
+      background-color: rgba(0, 0, 0, 0.2); /* fondo oscuro y opaco */
     }
 
     .section-2 {
@@ -136,6 +158,14 @@
       font-size: 1rem;
       text-decoration: none;
     }
+
+    .section-4 {
+      flex-direction: row-reverse;
+    }
+
+    .section-4 .text h2 {
+  transform: translateX(100px); /* desde la derecha */
+}
 
     footer {
       background-color: #182c44;
@@ -213,6 +243,10 @@
       <h1>El limpiamanos esencial para tu trabajo más difícil</h1>
     </div>
   </header>
+<!-- OFERTA -->
+  <div class="promo-bar">
+  ¡20% OFF en tu primera compra!
+</div>
 
   <!-- SECCIÓN 1 -->
   <section class="section section-1">
@@ -221,18 +255,18 @@
       <p class="fontP">Nuestros productos están formulados con ingredientes de alta calidad para asegurar la mejor limpieza.</p>
     </div>
     <div class="image">
-      <img src="./img/onda-de-agua-cayendo-al-agua.jpg" alt="Producto 1" />
+      <img src="./img/desinfectante-de-manos-en-botellas-con-bomba.jpg" alt="Producto 1" />
     </div>
   </section>
 
   <!-- SECCIÓN 2 -->
   <section class="section section-2">
     <div class="text">
-      <h2>Cuidado Natural</h2>
-      <p class="fontP">Creamos fórmulas suaves con el medio ambiente y efectivas para tu hogar.</p>
+      <h2>Limpieza Aromática</h2>
+      <p class="fontP">Formulado para limpiar eficazmente, con un delicado aroma que realza la sensación de frescura.</p>
     </div>
     <div class="image">
-      <img src="./img/desinfectante-de-manos-en-botellas-con-bomba.jpg" alt="Producto 2" />
+      <img src="./img/productos-corporales-aromaticos-de-alto-angulo.jpg" alt="Producto 2" />
     </div>
   </section>
 
@@ -243,10 +277,30 @@
       <p class="fontP">Estamos en continua investigación para ofrecerte lo mejor del mercado en limpieza profesional.</p>
     </div>
     <div class="image">
-      <img src="./img/acercamiento-al-tratamiento-con-acido-hialuronico.jpg" alt="Producto 3" />
+      <img src="./img/onda-de-agua-cayendo-al-agua.jpg" alt="Producto 3" />
     </div>
   </section>
+ <!-- SECCIÓN 4 -->
+<section class="section section-4">
+  <div class="text">
+    <h2>Amigable con tu piel</h2>
+    <p class="fontP">Formulado especialmente para manos sensibles: limpia sin irritar ni resecar.</p>
+  </div>
+  <div class="image">
+    <img src="./img/acercamiento-al-lavado-de-manos-higienico.jpg" alt="Amigable con tu piel" />
+  </div>
+</section>
 
+<!-- SECCIÓN 5 -->
+<section class="section section-5">
+  <div class="text">
+    <h2>No tapa cañerías ni deja manchas</h2>
+    <p class="fontP">Se enjuaga fácilmente sin dejar residuos. Seguro para tu piel, tu ropa y tus cañerías.</p>
+  </div>
+  <div class="image">
+    <img src="./img/remolino-de-agua-bajando-por-el-fregadero.jpg" alt="No tapa cañerías ni deja manchas" />
+  </div>
+</section>
   <!-- NUEVA SECCIÓN -->
   <section class="section-new">
     <h2>Contáctanos</h2>
@@ -278,6 +332,25 @@
     document.querySelectorAll('h1, h2').forEach(element => {
       observer.observe(element);
     });
+
+
+    const promoText = document.getElementById("promo-text");
+  const messages = [
+    "¡20% OFF en tu primera compra!",
+    "Tomamos pedidos por mayor y menor",
+    "Envíos a todo el país"
+  ];
+  let index = 0;
+
+  setInterval(() => {
+    promoText.style.opacity = 0;
+
+    setTimeout(() => {
+      index = (index + 1) % messages.length;
+      promoText.textContent = messages[index];
+      promoText.style.opacity = 1;
+    }, 500); // espera que se oculte para cambiar texto
+  }, 4000); // cada 4 segundos
   </script>
 
 </body>
