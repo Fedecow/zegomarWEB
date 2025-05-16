@@ -15,8 +15,157 @@
     body {
       font-family: 'Bebas Neue', sans-serif;
       color: #333;
-      overflow-x: hidden; /* Ya tenías esto, muy bien */
+      overflow-x: hidden; /* Prevenir scroll horizontal */
+      max-width: 100vw;
     }
+
+    /* MENÚ HAMBURGUESA MOBILE */
+
+.mobile-menu-container {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px 0 0;
+  width: 100%;
+  background: transparent;
+}
+
+.logo {
+  height: 100px; /* o el tamaño que necesites */
+}
+
+.hamburger {
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+
+
+.menu-toggle {
+  cursor: pointer;
+}
+
+
+.menu-toggle {
+  width: 30px;
+  height: 22px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  background: white;
+  margin: 5px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-toggle.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+nav.mobile-nav {
+  display: none;
+  flex-direction: column;
+  position: fixed;          /* Fijo para cubrir todo el viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;             /* 100% ancho */
+  height: 100vh;            /* 100% alto */
+  padding: 100px 20px 20px 20px; /* Más padding arriba para separar del toggle */
+  background: linear-gradient(
+    to top, 
+    rgba(0, 0, 0, 0.7),    /* negro semitransparente */
+    rgba(0, 0, 0, 0.1)     /* transparente suave arriba */
+  );
+  backdrop-filter: blur(5px); /* para difuminar el contenido de fondo */
+  z-index: 9999;            /* sobre todo */
+  overflow-y: auto;         /* si hay muchos links, scroll vertical */
+}
+
+nav.mobile-nav a {
+  color: white;
+  font-size: 1.5rem;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  user-select: none;
+}
+
+
+/* Oculta en escritorio */
+@media (min-width: 768px) {
+  .mobile-menu-container,
+  nav.mobile-nav {
+    display: none;
+  }
+}
+
+nav.mobile-nav.active {
+  display: flex;
+}
+
+
+  .navbar-desktop {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #182c44;
+  z-index: 1001;
+  padding: 10px 40px;
+}
+
+.navbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.desktop-logo img {
+  height: 80px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .navbar-desktop {
+    display: none;
+  }
+}
+
 
     header {
       position: relative;
@@ -69,6 +218,7 @@
       overflow: hidden;
     }
 
+
     #promo-text {
       display: inline-block;
       opacity: 1;
@@ -84,8 +234,10 @@
     .fontP {
       font-size: 20px;
     }
+header, .section .text {
+  overflow-x: hidden !important; /***ESTO GENERO EL CONTENDI RESPONSIVE***/
+}
 
-    
     .section .text,
     .section .image {
       width: 50%;
@@ -116,6 +268,7 @@
       max-width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .section-2 {
@@ -169,16 +322,17 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      z-index: 100;
-      max-width: 60px; /* limitamos el ancho máximo */
-      max-height: 60px; /* limitamos la altura máxima */
-      overflow: hidden; /* prevenir que se salga */
+      z-index: 1000;
+      width: 60px; /* fija tamaño para evitar saltos */
+      height: 60px;
+      overflow: hidden;
+      transition: right 0.3s ease;
     }
 
     .whatsapp-float img {
-      width: 100%; /* para que ocupe todo el contenedor limitado */
-      height: auto; /* mantener proporción */
-      display: block; /* quitar posibles espacios debajo */
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     @media (max-width: 768px) {
@@ -198,6 +352,7 @@
         flex-direction: column;
       }
 
+      
       .section .text,
       .section .image {
         width: 100%;
@@ -213,8 +368,8 @@
       }
 
       .whatsapp-float {
-        max-width: 50px;
-        max-height: 50px;
+        width: 50px;
+        height: 50px;
       }
     }
 
@@ -227,9 +382,56 @@
         width: 100%;
       }
     }
+
+    
+    @media (max-width: 433px) {
+      .promo-bar {
+        font-size: 24px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!--NAVBAR MOBILE-->
+  
+<div class="mobile-menu-container">
+  <div class="mobile-logo">
+    <img src="./img/ZEGOMAR-removebg-preview.png" alt="Logo" style="height: 100px;">
+  </div>
+  <div class="menu-toggle" id="menu-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+
+
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="#">Inicio</a>
+  <a href="#">Servicios</a>
+  <a href="#">Nosotros</a>
+  <a href="#">Contacto</a>
+</nav>
+
+
+  <!--NAVBAR DESK-->
+
+<nav class="navbar-desktop">
+  <div class="navbar-content">
+    <div class="desktop-logo">
+      <img src="./img/ZEG MAR (1).png" alt="Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Inicio</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+
 
   <!-- HERO -->
   <header>
@@ -298,7 +500,7 @@
   <section class="section-new">
     <h2>Contáctanos</h2>
     <p>¿Tienes alguna duda? Estamos aquí para ayudarte. Haz clic abajo para hablar con nosotros directamente.</p>
-    <a href="https://wa.me/549XXXXXXXXXX" class="button">Contactar por WhatsApp</a>
+    <a href="https://wa.me/549XXXXXXXXXX" class="button" target="_blank" rel="noopener">Contactar por WhatsApp</a>
   </section>
 
   <!-- FOOTER -->
@@ -307,12 +509,30 @@
   </footer>
 
   <!-- WHATSAPP FLOAT -->
-  <a href="https://wa.me/549XXXXXXXXXX" class="whatsapp-float" target="_blank">
-    <img src="./img/Whatsapp-logo-1.png" alt="WhatsApp">
+  <a href="https://wa.me/549XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
+    <img src="./img/Whatsapp-logo-1.png" alt="WhatsApp" />
   </a>
 
-  <!-- ANIMACIONES -->
+  <!--SCRIPT-->
   <script>
+
+    const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('mobile-nav');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    nav.classList.toggle('active');
+  });
+
+    window.addEventListener('scroll', () => {
+  const navbar = document.querySelector('.navbar-desktop');
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -327,6 +547,8 @@
     document.querySelectorAll('h1, h2').forEach(el => {
       observer.observe(el);
     });
+
+    
   </script>
 
 </body>
