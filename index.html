@@ -128,9 +128,10 @@ nav.mobile-nav.active {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #182c44;
+  background-color: #7eb3f3;
   z-index: 1001;
   padding: 10px 40px;
+   height: 80px;
 }
 /* Transición suave */
 nav {
@@ -156,10 +157,11 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 80px;
 }
 
 .desktop-logo img {
-  height: 80px;
+  height: 150px;
 }
 
 .nav-links {
@@ -221,6 +223,44 @@ nav {
       transform: translateX(-100px);
       transition: opacity 1.5s, transform 1.5s;
     }
+
+    .hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-carousel .hero-content {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  max-width: 600px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease;
+  z-index: 0;
+}
+
+.hero-carousel .hero-content.active {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+  z-index: 1;
+}
+
+.hero-carousel .hero-content.exit-left {
+  opacity: 0;
+  transform: translateY(-50%) translateX(-100%);
+  z-index: 0;
+}
+
+.hero-carousel .hero-content.enter-right {
+  opacity: 1;
+  transform: translateY(-50%) translateX(100%);
+  z-index: 1;
+}
+
 
     .promo-bar {
       height: 70px;
@@ -461,7 +501,7 @@ header, .section .text {
 <nav class="navbar-desktop">
   <div class="navbar-content">
     <div class="desktop-logo">
-      <img src="./img/ZEG MAR (1).png" alt="Logo" />
+      <img src="./img/ChatGPT Image 28 may 2025, 16_58_26-Photoroom.png" alt="Logo" />
     </div>
     <ul class="nav-links">
       <li><a href="#home">Inicio</a></li>
@@ -475,11 +515,17 @@ header, .section .text {
 
 
   <!-- HERO -->
-  <header>
-    <div class="hero-content">
+  
+<header>
+  <div class="hero-carousel">
+    <div class="hero-content active">
       <h1>El limpiamanos esencial para tu trabajo más difícil</h1>
     </div>
-  </header>
+    <div class="hero-content">
+      <h1>Descubre la calidad que transforma tu higiene laboral</h1>
+    </div>
+  </div>
+</header>
 
   <!-- OFERTA -->
   <div class="promo-bar">
@@ -601,6 +647,37 @@ header, .section .text {
       behavior: 'smooth'
     });
   }
+
+   const slides = document.querySelectorAll('.hero-carousel .hero-content');
+  let current = 0;
+
+  setInterval(() => {
+    const currentSlide = slides[current];
+    let next = (current + 1) % slides.length;
+    const nextSlide = slides[next];
+
+    // Animación para salir a la izquierda el actual
+    currentSlide.classList.remove('active');
+    currentSlide.classList.add('exit-left');
+
+    // Preparar el siguiente para entrar desde la derecha
+    nextSlide.classList.add('enter-right');
+
+    // Forzar reflow para activar la transición
+    void nextSlide.offsetWidth;
+
+    // Cambiar clases para la animación de entrada
+    nextSlide.classList.remove('enter-right');
+    nextSlide.classList.add('active');
+
+    // Limpiar clases de la diapositiva actual después de la transición (1s)
+    setTimeout(() => {
+      currentSlide.classList.remove('exit-left');
+    }, 1000);
+
+    current = next;
+  }, 5000);
+  
   </script>
 
 </body>
